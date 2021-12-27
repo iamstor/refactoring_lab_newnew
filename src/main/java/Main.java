@@ -1,3 +1,5 @@
+import model.Turtle;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -7,6 +9,11 @@ public class Main {
         app.load();
         Scanner scanner = new Scanner(System.in);
         app.print_help();
+        System.out.println("Введите логин");
+        String input2=scanner.nextLine();
+        app.history.add(input2);
+        app.handleLogin(input2);
+
         while (scanner.hasNextLine()) {
             String input=scanner.nextLine();
             app.history.add(input);

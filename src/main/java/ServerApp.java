@@ -5,6 +5,7 @@ public class ServerApp {
     public static String execute(App app,String input) throws IOException {
             String response="";
             app.history.add(input);
+
             if (input.equals("pd"))
                 response=app.handlePd();
             else if (input.equals("pu"))

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class App {
     Turtle turtle = new Turtle();
-
+    User user = new User();
 
     public ArrayList<String> history = new ArrayList<String>();
     private ArrayList<Location> locations = new ArrayList<Location>();
@@ -18,7 +18,13 @@ public class App {
 
 
 
+    public void dump_login() throws IOException {
+        Gson dump_gson_log = new GsonBuilder().setPrettyPrinting().create();
+        FileWriter writer=new FileWriter("login.json");
+        dump_gson_log.toJson(this.user, writer);
+        writer.close();
 
+    }
 
     public void dump() throws IOException {
         Gson dump_gson = new GsonBuilder().setPrettyPrinting().create();
@@ -42,6 +48,18 @@ public class App {
     }
 
 
+    public void load_login() throws IOException {
+        FileReader reader =new FileReader("login.json");
+        Gson gson1 = new Gson();
+        try{
+            this.user = gson1.fromJson(reader, User.class);
+        } catch (Exception e){
+            this.user = new User();
+            System.out.println("not dump file found - creating new user");
+        }
+        reader.close();
+
+    }
 
 
     public String print_help() {
@@ -62,6 +80,12 @@ public class App {
 
     public void handle() {
         System.out.println("handle");
+    }
+
+    public String handleLogin(String login){
+        turtle.setUser(login);
+        System.out.println("Login accepted");
+        return "login";
     }
 
     public String handlePd() {
